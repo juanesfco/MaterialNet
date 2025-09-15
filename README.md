@@ -10,6 +10,8 @@ This repository contains the code, data, and example notebooks for building a se
 
 These triples are then transformed into a **semantic network** where nodes represent materials, functions, and applications, and edges represent either **co-occurrence** (within the same entry) or **semantic similarity** (computed with Sentence-BERT embeddings).
 
+See the MaterialNet Web Tool here: [materialnet.streamlit.app/](https://materialnet.streamlit.app/).
+
 ---
 
 ## 📂 Repository Structure

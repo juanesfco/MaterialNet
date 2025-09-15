@@ -6,8 +6,8 @@ import sys
 import streamlit as st
 import streamlit.components.v1 as components
 
-ROOT = Path(__file__).resolve().parent  
-sys.path.insert(0, str(ROOT))
+#ROOT = Path(__file__).resolve().parent  
+#sys.path.insert(0, str(ROOT))
 
 # ✅ Use your existing function
 from semanticWeb.mapping import build_mapping_html

@@ -124,19 +124,23 @@ def build_mapping_html(
     # If nothing matched, we still want to show neighbors for the best one, or just the seed alone
     if not include_nodes:
         # pick best match to still show context (optional behavior)
-        best_idx = int(np.argmax(sims))
-        best_nid, _ = candidates[best_idx]
-        include_nodes.add(best_nid)
+        #best_idx = int(np.argmax(sims))
+        # Choose top 3
+        top_k = min(3, len(candidates))
+        top_k_idxs = np.argsort(-sims)[:top_k].tolist()
+        for best_idx in top_k_idxs:
+            best_nid, _ = candidates[best_idx]
+            include_nodes.add(best_nid)
 
-        neighs = list(G.neighbors(best_nid))
-        include_nodes.update(neighs)
-        
-        for nb in neighs:
-            neighs_nb = list(G.neighbors(nb))
-            for nnb in neighs_nb:
-                nnb_cat = _get_node_category(G.nodes[nnb])
-                if nnb_cat == category_not_choice:
-                    include_nodes.add(nnb)
+            neighs = list(G.neighbors(best_nid))
+            include_nodes.update(neighs)
+            
+            for nb in neighs:
+                neighs_nb = list(G.neighbors(nb))
+                for nnb in neighs_nb:
+                    nnb_cat = _get_node_category(G.nodes[nnb])
+                    if nnb_cat == category_not_choice:
+                        include_nodes.add(nnb)
 
     # Build PyVis network
     net = Network(height="800px", width="100%", bgcolor="#ffffff", font_color="#222222", notebook=True, directed=False, cdn_resources="in_line")
